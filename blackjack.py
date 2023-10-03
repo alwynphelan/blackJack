@@ -66,7 +66,8 @@ if __name__ == "__main__":   # Is Python running directly (or imported)?
         while True:
             console.print("Here is your first hand:", style="bold blue")
             print(display_status())
-            choice = input("Will you hit or stand? Press 'h' or 's' to decide")
+            console.print("[bold]Will you [green]hit[/] (for winning) or [red]stand[/] (you want to lose)? Press [green]'h'[/] or [red]'s'[/] to decide[/]")
+            choice = input()
 
             if choice in ['h', 'H']:
                 add_card(player)
@@ -91,21 +92,28 @@ if __name__ == "__main__":   # Is Python running directly (or imported)?
 
         if keep_playing:
             while True:
-                if calc_total(dealer) >= 17:
-                    break
                 console.print("Here are the dealer's cards:", style="bold red")
                 print(display_cards(dealer))
-                add_card(dealer)
+                if calc_total(dealer) < 17 :
+                    add_card(dealer)
+                    console.print("Dealer has chosen to hit, here are his cards:", style="bold underline red")
+                    print(display_cards(dealer))
                 if calc_total(dealer) >= 22:
                     console.print("[red]The dealer has LOST![/] What a loser amirite! Hahahah, you're like way cooler because [green]YOU WON![/]", style="bold underline blue")
                     break
                 elif calc_total(dealer) >= 17:
                     break
+                elif calc_total(dealer) < calc_total(player):
+                        console.print("[purple]HOLY MOLY![/] You WONNN! WOWWZA that's amazing! [green]YOuuuuu WINNN :confetti_ball: !!![/]", style="bold underline blue")
+                        break
                 time.sleep(1)
         else:
-            console.print("dEALER wion")
+            console.print("Only [red]loosers[intentionally mispelled](YOU)[/] could lose to a computer :skull:", style="bold underline purple")
+            if calc_total(dealer) > calc_total(player):
+                console.print("Only [red]loosers[intentionally mispelled](YOU)[/] could lose to a computer :skull:", style="bold underline purple")
         
-        reset = input("Replay?")
+        console.print("[bold]Surely you'll play again right? Theres so much money to be made! Press [green]'y'[/] for yes and [red]'n'[/] for no (the wrong option)[/]")
+        reset = input()
         if reset in ['y', 'Y']:
             restartGame()
         if reset in ['n', 'N']:
